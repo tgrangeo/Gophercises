@@ -55,7 +55,6 @@ func findATags(n *html.Node) []Link {
 	for len(stack) > 0 {
 		node := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
-
 		if node.Type == html.ElementNode && node.Data == "a" {
 			var link Link
 			for _, attr := range node.Attr {
@@ -84,7 +83,7 @@ func extractText(n *html.Node) string {
 		stack = stack[:len(stack)-1]
 
 		if node.Type == html.TextNode {
-			textBuilder.WriteString(node.Data)
+			textBuilder.WriteString(strings.TrimSpace(node.Data))
 		}
 
 		for c := node.FirstChild; c != nil; c = c.NextSibling {
